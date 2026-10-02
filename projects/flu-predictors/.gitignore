@@ -1,0 +1,16 @@
+# Data (never commit raw/processed data)
+*.csv
+*.zip
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+# Models / artifacts
+*.pkl
+*.joblib
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
