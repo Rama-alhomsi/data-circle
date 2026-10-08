@@ -52,7 +52,7 @@ Effort: Low/Medium/High · Status: Not Started / In Progress / Review / Complete
 | 0.6 | Create GitHub Project board with these tickets | A+B  | 0.1 |
 
 ### Sprint 1 – EDA (Weeks 2–3)
-| ID | Title | Owner  | Depends on |
+| ID | Title | Owner | Depends on |
 |---|---|---|---|---|
 | 1.1 | Data quality: dtypes, duplicates, ranges, merge features + labels | A | 0.4 |
 | 1.2 | Missing-value analysis & strategy (incl. missingness vs. target) | A | 1.1 |
