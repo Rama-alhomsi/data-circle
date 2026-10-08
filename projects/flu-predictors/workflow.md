@@ -1,6 +1,6 @@
 # Workflow & Project Plan
 
-**Team (2 members):** [Name 1] (**A**) · [Name 2] (**B**)
+**Team (2 members):** Rama alhomsi (**A**) · Uyazi Dube(**B**)
 Because we are two, roles overlap: **A** leads data/EDA/dashboard, **B** leads modelling/interpretation. Every ticket has a *reviewer* (the other person) – nobody merges their own PR.
 
 ## 1. Git Workflow
@@ -42,51 +42,51 @@ Because we are two, roles overlap: **A** leads data/EDA/dashboard, **B** leads m
 Effort: Low/Medium/High · Status: Not Started / In Progress / Review / Complete (track on the GitHub Project board)
 
 ### Week 1 – Setup (both complete all individual tasks)
-| ID | Title | Owner | Effort | Depends on |
+| ID | Title | Owner | Depends on |
 |---|---|---|---|---|
-| 0.1 | Fork repo, add teammate + mentor as collaborators, set `git config user.name/email` | A | Low | – |
-| 0.2 | Folder structure, `.gitignore`, `requirements.txt`, README skeleton | A | Low | 0.1 |
-| 0.3 | Set up venv, install requirements, run a test notebook | A + B | Low | 0.2 |
-| 0.4 | Download data into `data/`, review data dictionary | A + B | Low | 0.3 |
-| 0.5 | Agree on hypotheses & research questions | A + B | Low | – |
-| 0.6 | Create GitHub Project board with these tickets | B | Low | 0.1 |
+| 0.1 | Fork repo, add teammate + mentor as collaborators, set `git config user.name/email` | A | – |
+| 0.2 | Folder structure, `.gitignore`, `requirements.txt`, README skeleton | A  | 0.1 |
+| 0.3 | Set up venv, install requirements, run a test notebook | A | 0.2 |
+| 0.4 | Download data into `data/`, review data dictionary | A | 0.3 |
+| 0.5 | Agree on hypotheses & research questions | A + B | – |
+| 0.6 | Create GitHub Project board with these tickets | A+B  | 0.1 |
 
 ### Sprint 1 – EDA (Weeks 2–3)
-| ID | Title | Owner | Effort | Depends on |
+| ID | Title | Owner  | Depends on |
 |---|---|---|---|---|
-| 1.1 | Data quality: dtypes, duplicates, ranges, merge features + labels | A | Medium | 0.4 |
-| 1.2 | Missing-value analysis & strategy (incl. missingness vs. target) | A | Medium | 1.1 |
-| 1.3 | Target distribution, imbalance, target correlation (H5, RQ4) | B | Low | 1.1 |
-| 1.4 | Demographics vs. uptake (H2, RQ1, 2, 5) | A | Medium | 1.2 |
-| 1.5 | Opinions & risk perception vs. uptake (H1, H4) | B | Medium | 1.2 |
-| 1.6 | Behaviours, doctor recc., health factors vs. uptake (H3, H6, RQ3, 6) | B | Medium | 1.2 |
-| 1.7 | Reorganise high-cardinality categoricals (`employment_*`, `hhs_geo_region`) | A | Medium | 1.2 |
-| 1.8 | Correlation analysis (Cramér's V / Spearman), multicollinearity | B | Medium | 1.4–1.6 |
-| 1.9 | `02_data_cleaning` notebook + `src/cleaning.py` | A | Medium | 1.2, 1.7 |
-| 1.10 | EDA report in `reports/` + 5-min pitch #1 | A + B | Medium | all |
+| 1.1 | Data quality: dtypes, duplicates, ranges, merge features + labels | A | 0.4 |
+| 1.2 | Missing-value analysis & strategy (incl. missingness vs. target) | A | 1.1 |
+| 1.3 | Target distribution, imbalance, target correlation (H5, RQ4) | A | 1.1 |
+| 1.4 | Demographics vs. uptake (H2, RQ1, 2, 5) | A | 1.2 |
+| 1.5 | Opinions & risk perception vs. uptake (H1, H4) | A | 1.2 |
+| 1.6 | Behaviours, doctor recc., health factors vs. uptake (H3, H6, RQ3, 6) | A | 1.2 |
+| 1.7 | Reorganise high-cardinality categoricals (`employment_*`, `hhs_geo_region`) | A  | 1.2 |
+| 1.8 | Correlation analysis (Cramér's V / Spearman), multicollinearity | A | 1.4–1.6 |
+| 1.9 | `02_data_cleaning` notebook + `src/cleaning.py` | B | 1.2, 1.7 |
+| 1.10 | EDA report in `reports/` + 5-min pitch #1 | A + B  | all |
 
 ### Sprint 2 – Modelling (Weeks 4–6)
-| ID | Title | Owner | Effort | Depends on |
+| ID | Title | Owner | Depends on |
 |---|---|---|---|---|
-| 2.1 | Aggregated scores (preventive behaviour, risk perception) | A | Medium | 1.9 |
-| 2.2 | Ordinal encoding (age, income, education) + one-hot for nominal | A | Medium | 1.9 |
-| 2.3 | Preprocessing `Pipeline`/`ColumnTransformer` in `src/` | A | Medium | 2.1, 2.2 |
-| 2.4 | Baseline Logistic Regression per target, stratified 5-fold CV | B | Medium | 2.3 |
-| 2.5 | Random Forest | B | Medium | 2.3 |
-| 2.6 | Gradient Boosting (HistGB / XGBoost / LightGBM) | B | Medium | 2.3 |
+| 2.1 | Aggregated scores (preventive behaviour, risk perception) | A | 1.9 |
+| 2.2 | Ordinal encoding (age, income, education) + one-hot for nominal | A | 1.9 |
+| 2.3 | Preprocessing `Pipeline`/`ColumnTransformer` in `src/` | A  | 2.1, 2.2 |
+| 2.4 | Baseline Logistic Regression per target, stratified 5-fold CV | B | 2.3 |
+| 2.5 | Random Forest | B | 2.3 |
+| 2.6 | Gradient Boosting (HistGB / XGBoost / LightGBM) | B  | 2.3 |
 | 2.7 | Hyperparameter tuning (RandomizedSearchCV) | B | High | 2.4–2.6 |
-| 2.8 | Evaluation: ROC AUC, accuracy, precision/recall/F1, confusion matrix, comparison table | A | Medium | 2.7 |
-| 2.9 | Experiment log (model, params, CV scores) | A | Low | 2.4 |
-| 2.10 | `src/train_model.py`, `processed_data_dictionary.md`, pitch #2 | A + B | Medium | all |
+| 2.8 | Evaluation: ROC AUC, accuracy, precision/recall/F1, confusion matrix, comparison table | A | 2.7 |
+| 2.9 | Experiment log (model, params, CV scores) | A | 2.4 |
+| 2.10 | `src/train_model.py`, `processed_data_dictionary.md`, pitch #2 | A + B | all |
 | 2.11 | Optional: ensemble / DrivenData submission | B | Medium | 2.7 |
 
 ### Sprint 3 – Insights & Deployment (Weeks 7–9)
-| ID | Title | Owner | Effort | Depends on |
+| ID | Title | Owner  | Depends on |
 |---|---|---|---|---|
-| 3.1 | Feature importance (model-based + permutation), both targets | B | Medium | 2.7 |
-| 3.2 | SHAP analysis, non-linearity & interactions | B | High | 3.1 |
-| 3.3 | Compare insights across models; relate back to H1–H6 | A + B | Medium | 3.2 |
-| 3.4 | Limitations: what model/data can't explain, biases, ethics | A + B | Medium | 3.3 |
+| 3.1 | Feature importance (model-based + permutation), both targets | B | 2.7 |
+| 3.2 | SHAP analysis, non-linearity & interactions | B  | 3.1 |
+| 3.3 | Compare insights across models; relate back to H1–H6 | A + B  | 3.2 |
+| 3.4 | Limitations: what model/data can't explain, biases, ethics | A + B  | 3.3 |
 | 3.5 | Streamlit dashboard (optional: EDA charts, metrics, prediction demo) | A | High | 2.10 |
 | 3.6 | Public-health recommendations | A + B | Medium | 3.3 |
 | 3.7 | Final README, docs cleanup, 5-min final presentation | A + B | Medium | all |
@@ -100,7 +100,6 @@ Effort: Low/Medium/High · Status: Not Started / In Progress / Review / Complete
 - 
 ### Assigned To:
 ### Reviewer:
-### Estimated Effort: [Low/Medium/High]
 ### Status: [Not Started/In Progress/Review/Complete]
 ### Dependencies:
 ```
