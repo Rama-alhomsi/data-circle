@@ -1,5 +1,8 @@
 # ReDI School Data Circle
 
+## GitHub Repository
+This project is hosted on GitHub: [Rama-alhomsi/data-circle](https://github.com/Rama-alhomsi/data-circle).
+
 ## Overview
 The Data Circle is a project-based learning program for data science and analytics students. Students work in small teams to complete real-world data projects over the course of a semester.
 
