@@ -159,27 +159,7 @@ After each sprint, both team members should discuss what went well, what could b
 
 Record the outcomes and agreed actions in the project documentation.
 
-## 8. Decision Log
-
-Record important project decisions to maintain transparency and consistency.
-
-| Date | Decision | Reason |
-| ---- | -------- | ------ |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
-|      |          |        |
 
 ---
 
 **Important project note:** The project investigates associations and predictive relationships, not necessarily causal effects. Any conclusions about vaccination behaviour should reflect this limitation. Confirm the reported target correlation and other initial assumptions during EDA before presenting them as findings.
-
-One important correction: your original plan included `Effort` values such as High and Medium inside some dependency columns. I separated these concepts so the GitHub board can track effort independently from dependencies. I also made the optional tasks explicit and corrected the wording around correlation and causation.
