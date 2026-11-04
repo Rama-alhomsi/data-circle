@@ -26,7 +26,14 @@ The dataset includes demographic information, health-related characteristics, op
 
 **Data source:** [DrivenData – Flu Shot Learning](https://www.drivendata.org/competitions/66/flu-shot-learning/)
 
-The original survey data is not included in this repository. Download the competition data and place the relevant CSV files in the project's `data/` directory.
+The following dataset files are included in the repository's `data/` directory:
+
+- `training_set_features.csv`
+- `training_set_labels.csv`
+- `test_set_features.csv`
+- `submission_format.csv`
+- `data_dictionary.md`
+- `processed_data_dictionary.md`
 
 ## Project Structure
 
@@ -34,6 +41,10 @@ The original survey data is not included in this repository. Download the compet
 flu-predictors/
 │
 ├── data/
+│   ├── training_set_features.csv
+│   ├── training_set_labels.csv
+│   ├── test_set_features.csv
+│   ├── submission_format.csv
 │   ├── data_dictionary.md
 │   └── processed_data_dictionary.md
 │
@@ -45,6 +56,8 @@ flu-predictors/
 ├── reports/
 │
 ├── src/
+│   ├── README.md
+│   ├── __init__.py
 │   ├── cleaning.py
 │   └── hypothesis.py
 │
@@ -98,6 +111,8 @@ Predictive modelling is a planned next stage. The prepared dataset will be used 
 - Jupyter Notebook
 - Git and GitHub
 
+Additional libraries listed in `requirements.txt` support planned modelling and dashboard development.
+
 ## Key Analytical Insights
 
 The hypothesis-testing analysis identified several associations worth investigating further:
@@ -118,12 +133,46 @@ These findings describe associations in observational survey data and should not
 
 ## Project Status
 
-<ins>Completed</ins>
+**Completed**
 - Exploratory data analysis.
 - Data cleaning and preparation.
 - Initial hypothesis testing.
 
-<ins>In Progress / Planned</ins>
+**In Progress / Planned**
+- Further feature engineering.
+- Predictive modelling.
+- Model evaluation and comparison.
+- Final presentation of results.
+
+For more details about project tasks and collaboration, see [`workflow.md`](workflow.md).
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Rama-alhomsi/data-circle.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd data-circle/projects/flu-predictors
+```
+
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Launch Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+**Project focus:** Understanding vaccination patterns through data analysis and statistical investigation.
 - Further feature engineering.
 - Predictive modelling.
 - Model evaluation and comparison.
