@@ -4,18 +4,18 @@
 
 This project investigates factors associated with H1N1 and seasonal influenza vaccination uptake using data from the 2009 National H1N1 Flu Survey (NHFS), provided through the DrivenData Flu Shot Learning challenge.
 
-The objective is to understand vaccination patterns, identify relevant demographic and behavioural factors, and prepare the dataset for future predictive modelling.
+The objective is to understand vaccination patterns, identify relevant demographic, socioeconomic, health-related, and behavioural factors, and prepare the dataset for predictive modelling.
 
 ## Research Questions
 
 - Which demographic and socioeconomic characteristics are associated with vaccination uptake?
 - How are health behaviours and opinions related to vaccination decisions?
-- What role does a doctor's recommendation play in vaccination uptake?
+- What role do doctor's recommendations play in vaccination uptake?
 - Are the factors associated with H1N1 vaccination similar to those associated with seasonal influenza vaccination?
 
 ## Dataset
 
-The dataset contains survey responses from 26,707 respondents.
+The training dataset contains survey responses from 26,707 respondents.
 
 The two target variables are:
 
@@ -74,15 +74,34 @@ flu-predictors/
 - Investigated missing values and potential data-quality issues.
 - Explored relationships between demographic, behavioural, and health-related variables.
 - Compared vaccination uptake across different respondent groups.
+- Investigated missingness patterns and their relationship with vaccination outcomes.
 
 ### 2. Data Cleaning and Preparation
 
-- Checked duplicate records and respondent identifiers.
-- Investigated missingness patterns and their relationship with vaccination outcomes.
-- Distinguished between missing information and meaningful categories.
-- Applied data preparation and imputation strategies.
-- Ensured consistent feature columns between training and test datasets.
-- Avoided data leakage by learning relevant preprocessing values from training data.
+Implemented reusable preprocessing functions in `src/cleaning.py` to prepare the survey data for statistical analysis and future predictive modelling.
+
+The preparation process includes:
+
+- Standardizing text values and categorical labels.
+- Creating missing-value indicators and counting skipped answers.
+- Distinguishing structurally inapplicable employment information from genuinely missing responses.
+- Grouping infrequent employment categories using thresholds learned from the training data.
+- Creating ordinal representations of age, education, and income categories.
+- Applying numeric mode imputation using values learned from the training dataset.
+- Validating respondent identifiers, value ranges, missing values, row counts, and target integrity.
+- Applying consistent preprocessing rules to training and test datasets.
+
+**Validation results:**
+
+- Prepared 26,707 training records and 26,708 test records.
+- Confirmed that respondent IDs are unique.
+- Confirmed that no missing values remain after preprocessing.
+- Confirmed that training and test datasets have matching feature columns.
+- Confirmed that vaccination target values and overall vaccination rates remain unchanged after cleaning.
+
+The preprocessing functions are reusable and use training-derived information when preparing the test dataset to reduce data leakage.
+
+A scikit-learn preprocessing pipeline with fold-specific imputation is planned for the predictive modelling stage.
 
 ### 3. Hypothesis Testing
 
@@ -118,9 +137,9 @@ Additional libraries listed in `requirements.txt` support planned modelling and 
 The hypothesis-testing analysis identified several associations worth investigating further:
 
 - Doctor recommendations were strongly associated with both H1N1 and seasonal vaccination uptake.
-- H1N1 and seasonal vaccination decisions were positively associated.
+- H1N1 and seasonal vaccination decisions were positively associated. Respondents vaccinated against H1N1 were also more likely to have received the seasonal vaccine.
 - Age showed an association with seasonal vaccination.
-- Preventive health behaviours showed a positive relationship with H1N1 vaccination, although the observed correlation was relatively weak.
+- Preventive health behaviours showed a positive relationship with vaccination uptake, although the observed correlations were relatively weak.
 
 These findings describe associations in observational survey data and should not be interpreted as evidence of causation.
 
@@ -134,11 +153,13 @@ These findings describe associations in observational survey data and should not
 ## Project Status
 
 **Completed**
+
 - Exploratory data analysis.
 - Data cleaning and preparation.
 - Initial hypothesis testing.
 
 **In Progress / Planned**
+
 - Further feature engineering.
 - Predictive modelling.
 - Model evaluation and comparison.
@@ -171,12 +192,5 @@ Launch Jupyter Notebook:
 ```bash
 jupyter notebook
 ```
-
-**Project focus:** Understanding vaccination patterns through data analysis and statistical investigation.
-- Further feature engineering.
-- Predictive modelling.
-- Model evaluation and comparison.
-- Final presentation of results.
-
 
 **Project focus:** Understanding vaccination patterns through data analysis and statistical investigation.
