@@ -1,61 +1,133 @@
-# Flu Predictors: Predicting Vaccination Patterns
+# Flu Shot Learning: Predicting Vaccination Patterns
 
-> Team: **[Name 1]** & **[Name 2]** · Course/Program: **[School / Course]** · Mentor: **[Name]**
+## Project Overview
 
-## 1. Objective
-Predict whether respondents of the 2009 National H1N1 Flu Survey (NHFS, CDC) received the
-**H1N1 vaccine** and the **seasonal flu vaccine**, and identify which demographic, behavioural
-and opinion factors most strongly influence vaccination decisions. Findings are intended to
-inform public-health communication strategies.
+This project investigates factors associated with H1N1 and seasonal influenza vaccination uptake using data from the 2009 National H1N1 Flu Survey (NHFS), provided through the DrivenData Flu Shot Learning challenge.
 
-- Task: two binary classification targets (`h1n1_vaccine`, `seasonal_vaccine`)
-- Metric: mean ROC AUC across both targets
-- Source: [DrivenData – Flu Shot Learning](https://www.drivendata.org/competitions/66/flu-predictors/)
+The objective is to understand vaccination patterns, identify relevant demographic and behavioural factors, and prepare the dataset for future predictive modelling.
 
-## 2. Repository Structure
-```
-├── data/            # data_dictionary.md, processed_data_dictionary.md (CSVs are git-ignored)
-├── notebooks/       # numbered, author-tagged notebooks (01_exploratory_data_analysis_<author>.ipynb)
-├── reports/         # written reports and presentation slides
-├── src/             # reusable Python modules (cleaning, features, train_model.py)
+## Research Questions
+
+- Which demographic and socioeconomic characteristics are associated with vaccination uptake?
+- How are health behaviours and opinions related to vaccination decisions?
+- What role does a doctor's recommendation play in vaccination uptake?
+- Are the factors associated with H1N1 vaccination similar to those associated with seasonal influenza vaccination?
+
+## Dataset
+
+The dataset contains survey responses from 26,707 respondents.
+
+The two target variables are:
+
+- `h1n1_vaccine`: Whether the respondent received the H1N1 vaccine.
+- `seasonal_vaccine`: Whether the respondent received the seasonal influenza vaccine.
+
+The dataset includes demographic information, health-related characteristics, opinions, and behavioural indicators.
+
+**Data source:** [DrivenData – Flu Shot Learning](https://www.drivendata.org/competitions/66/flu-shot-learning/)
+
+The original survey data is not included in this repository. Download the competition data and place the relevant CSV files in the project's `data/` directory.
+
+## Project Structure
+
+```text
+flu-predictors/
+│
+├── data/
+│   ├── data_dictionary.md
+│   └── processed_data_dictionary.md
+│
+├── notebooks/
+│   ├── 01_exploratory_data_analysis_rama.ipynb
+│   ├── 02_data_cleaning_rama_uyazi.ipynb
+│   └── 03_hypothesis_testing_rama.ipynb
+│
+├── reports/
+│
+├── src/
+│   ├── cleaning.py
+│   └── hypothesis.py
+│
 ├── requirements.txt
-├── workflow.md      # sprint plan, tickets, decisions log
+├── workflow.md
 └── README.md
 ```
 
-## 3. Setup
-```bash
-git clone https://github.com/<org-or-user>/flu-predictors.git
-cd flu-predictors
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-Download the four CSV files from DrivenData into `data/` (see `data/data_dictionary.md`):
-`training_set_features.csv`, `training_set_labels.csv`, `test_set_features.csv`, `submission_format.csv`.
+## Project Workflow
 
-## 4. How to Reproduce
-1. Run notebooks in numeric order (`01_...` → `0N_...`).
-2. Reusable logic lives in `src/`; notebooks import from it.
-3. Train final models: `python src/train_model.py` *(added in Sprint 2)*.
-4. Launch dashboard: `streamlit run src/app.py` *(added in Sprint 3)*.
+### 1. Exploratory Data Analysis (EDA)
 
-## 5. Key Findings
-*To be completed at the end of each sprint.*
+- Examined dataset structure and variable distributions.
+- Investigated missing values and potential data-quality issues.
+- Explored relationships between demographic, behavioural, and health-related variables.
+- Compared vaccination uptake across different respondent groups.
 
-| Sprint | Summary |
-|---|---|
-| 1 – EDA | _TBD_ |
-| 2 – Modelling | _TBD_ (CV ROC AUC: H1N1 = _, Seasonal = _) |
-| 3 – Insights | _TBD_ |
+### 2. Data Cleaning and Preparation
 
-## 6. Ethics & Data Use
-Per CDC guidelines the data is used for statistical analysis only; we do not attempt to identify
-individuals or link the data with other identifiable datasets. Survey data may carry
-non-response and self-report bias (see reports for discussion).
+- Checked duplicate records and respondent identifiers.
+- Investigated missingness patterns and their relationship with vaccination outcomes.
+- Distinguished between missing information and meaningful categories.
+- Applied data preparation and imputation strategies.
+- Ensured consistent feature columns between training and test datasets.
+- Avoided data leakage by learning relevant preprocessing values from training data.
 
-## 7. Contributors
-| Name | Role |
-|---|---|
-| [Name 1] | Data preprocessing & EDA lead; dashboard |
-| [Name 2] | Modelling lead; interpretation |
+### 3. Hypothesis Testing
+
+Investigated relationships between vaccination outcomes and selected survey variables using:
+
+- Chi-square tests.
+- Cramér's V.
+- Spearman correlation.
+- Confidence intervals.
+- Odds ratios.
+
+The analysis also considered potential confounding factors and the limitations of interpreting observational survey data.
+
+### 4. Predictive Modelling
+
+Predictive modelling is a planned next stage. The prepared dataset will be used to develop and evaluate classification models for both vaccination outcomes.
+
+## Technologies
+
+- Python
+- pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- SciPy
+- Jupyter Notebook
+- Git and GitHub
+
+## Key Analytical Insights
+
+The hypothesis-testing analysis identified several associations worth investigating further:
+
+- Doctor recommendations were strongly associated with both H1N1 and seasonal vaccination uptake.
+- H1N1 and seasonal vaccination decisions were positively associated.
+- Age showed an association with seasonal vaccination.
+- Preventive health behaviours showed a positive relationship with H1N1 vaccination, although the observed correlation was relatively weak.
+
+These findings describe associations in observational survey data and should not be interpreted as evidence of causation.
+
+## Limitations
+
+- The dataset is based on self-reported survey responses.
+- Missing information may introduce bias.
+- Observed associations do not establish causal relationships.
+- The survey reflects vaccination patterns in 2009 and may not represent current behaviour.
+
+## Project Status
+
+<ins>Completed</ins>
+- Exploratory data analysis.
+- Data cleaning and preparation.
+- Initial hypothesis testing.
+
+<ins>In Progress / Planned</ins>
+- Further feature engineering.
+- Predictive modelling.
+- Model evaluation and comparison.
+- Final presentation of results.
+
+
+**Project focus:** Understanding vaccination patterns through data analysis and statistical investigation.
