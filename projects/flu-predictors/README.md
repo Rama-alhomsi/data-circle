@@ -77,8 +77,6 @@ flu-predictors/
 
 ### 2. Data Cleaning and Preparation
 
-### 2. Data Cleaning and Preparation
-
 Implemented reusable preprocessing functions in `src/cleaning.py` to prepare the survey data for statistical analysis and future predictive modelling.
 
 The preparation process includes:
