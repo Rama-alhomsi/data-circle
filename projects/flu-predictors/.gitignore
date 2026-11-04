@@ -1,5 +1,4 @@
-# Data (never commit raw/processed data)
-*.csv
+# Data
 *.zip
 # Python
 __pycache__/
