@@ -77,12 +77,28 @@ flu-predictors/
 
 ### 2. Data Cleaning and Preparation
 
-- Checked duplicate records and respondent identifiers.
-- Investigated missingness patterns and their relationship with vaccination outcomes.
-- Distinguished between missing information and meaningful categories.
-- Applied data preparation and imputation strategies.
-- Ensured consistent feature columns between training and test datasets.
-- Avoided data leakage by learning relevant preprocessing values from training data.
+Implemented reusable preprocessing functions in `src/cleaning.py` and applied them to the training and test datasets.
+
+The preparation process includes:
+
+- Standardizing text values and categorical labels.
+- Investigating missing values and creating missing-value indicators.
+- Distinguishing structurally inapplicable employment information from genuinely missing responses.
+- Grouping infrequent employment categories using thresholds learned from the training data.
+- Creating ordinal representations of age, education, and income categories.
+- Applying numeric mode imputation using values learned from the training dataset.
+- Validating respondent identifiers, value ranges, missing values, row counts, and target integrity.
+- Applying consistent preprocessing rules to training and test datasets.
+
+**Validation results:**
+
+- Prepared 26,707 training records and 26,708 test records.
+- Confirmed that respondent IDs are unique.
+- Confirmed that no missing values remain after preprocessing.
+- Confirmed that training and test datasets have matching feature columns.
+- Confirmed that vaccination target values and overall vaccination rates remain unchanged after cleaning.
+
+The preprocessing functions are reusable and keep training-derived information separate from test-data preparation. Fold-specific imputation within a scikit-learn pipeline is planned for the predictive modelling stage.
 
 ### 3. Hypothesis Testing
 
