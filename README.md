@@ -21,7 +21,7 @@ The project combines exploratory data analysis, data preparation, statistical hy
 
 ## Dataset
 
-The project uses the [Flu Shot Learning dataset from DrivenData](https://www.drivendata.org/competitions/66/flu-predictors/), based on the CDC's 2009 National H1N1 Flu Survey.
+The project uses the [Flu Shot Learning dataset from DrivenData](https://www.drivendata.org/competitions/66/flu-shot-learning/), based on the CDC's 2009 National H1N1 Flu Survey.
 
 The dataset contains survey responses and two binary target variables representing H1N1 and seasonal flu vaccination.
 
@@ -40,7 +40,8 @@ Raw data files are not included in this repository and must be downloaded separa
 ```text
 data-circle/
 ├── README.md
-├── flu_shot_predictors_sprint1.pptx
+├── presentations/
+│   └── flu_shot_predictors_sprint1.pptx
 └── projects/
     └── flu-predictors/
         ├── data/
@@ -50,6 +51,9 @@ data-circle/
         │   ├── 01_exploratory_data_analysis_rama.ipynb
         │   ├── 02_data_cleaning_rama_uyazi.ipynb
         │   └── 03_hypothesis_testing_rama.ipynb
+        ├── reports/
+        │   ├── eda_report.md
+        │   └── cleaning_changes.md
         ├── src/
         │   ├── cleaning.py
         │   └── hypothesis.py

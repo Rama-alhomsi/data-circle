@@ -1,2 +1,4 @@
+# Raw data comes from DrivenData and is not stored in Git
+*.csv
+processed/
 *.zip
-

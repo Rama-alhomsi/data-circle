@@ -1,165 +1,135 @@
 # Workflow & Project Plan
 
-**Project:** Flu Shot Learning: Predicting Vaccination Patterns
-**Team:** Rama Alhomsi (A) and Uyazi Dube (B)
-**Project Duration:** 9 weeks
+**Author:** Rama Alhomsi. Uyazi Dube worked on Sprint 1 (data cleaning) and left the project afterwards, so Sprints 2 and 3 are done by one person.
+Every pull request is reviewed by the mentor or a peer from the Data Circle when possible; otherwise Rama reviews her own PR with the checklist in section 1 before merging.
+Status values: Not Started / In Progress / Review / Complete. Track them on the GitHub issues and Project board.
 
-Since our team has two members, responsibilities may overlap. **Member A** leads data analysis, exploratory data analysis (EDA), and dashboard development. **Member B** leads modelling and interpretation. Each ticket must have a reviewer—the other team member. Neither member may merge their own pull request (PR).
+## 1. Git workflow
+- `main` is protected: changes only via a Pull Request. Before merging your own PR: read the diff on GitHub, run the notebook top to bottom, and check that no data or model files are included.
+- One branch per ticket: `feature/1.2-missing-values`, `fix/...`, `docs/...`
+- Commit messages are short and specific (`Add missing-value chart for training features`).
+- PR description: what changed, why, how to test, linked ticket (`Closes #<issue>`).
+- Notebooks are numbered: `01_exploratory_data_analysis`, `02_data_cleaning_rama_uyazi`, `03_hypothesis_testing_rama`, `04_feature_engineering_rama`, `05_baseline_models_rama`, `06_tuning_and_evaluation_rama`.
+- Reusable code goes in `src/`; notebooks import from it. Data files and trained models are never committed.
 
-## 1. Git Workflow
+## 2. Timeline (9 weeks)
+| Week | Focus | Milestone |
+|---|---|---|
+| 1 | Setup | Repo forked, environment works, docs started |
+| 2-3 | Sprint 1: EDA and cleaning | EDA report, cleaned dataset, pitch 1 |
+| 4-5 | Sprint 2: features and baseline models | Feature set; logistic regression, random forest, gradient boosting with CV |
+| 6 | Sprint 2: tuning and evaluation | Tuned models, metrics table, pitch 2 |
+| 7-8 | Sprint 3: interpretation and dashboard | Feature importance, Streamlit app |
+| 9 | Wrap-up | Final docs, 5-minute presentation |
 
-* Protect the `main` branch. All changes must be submitted through reviewed pull requests.
+## 3. Hypotheses
+- **H1** Beliefs (effectiveness, side-effect worry) influence vaccination.
+- **H2** Demographics (age, education, income) are key drivers.
+- **H3** Preventive behaviours correlate with uptake.
+- **H4** Risk perception (concern, perceived risk) affects decisions.
+- **H5** Vaccination behaviour is correlated across vaccines.
+- **H6** Doctor recommendation and health insurance are among the strongest predictors.
 
-* Create one branch per ticket, using descriptive names such as `feature/1.2-missing-values-eda`, `fix/...`, or `docs/...`.
+Results are in `reports/eda_report.md`.
 
-* Write clear, specific commit messages using the imperative form, such as `Add missing-value heatmap for training features`.
+## 4. Research questions
+1. Which age groups are most or least likely to be vaccinated?
+2. Do gender, education or income affect uptake?
+3. Are people with chronic conditions or health workers more likely to vaccinate?
+4. Are seasonal-flu vaccinees also likely to get H1N1?
+5. Do employment status or household composition correlate with uptake?
+6. How much does a doctor's recommendation matter?
+7. Do findings differ between the H1N1 and seasonal vaccines?
 
-* Every PR description must explain what changed, why it changed, how to test it, and which ticket it addresses.
+## 5. Tickets
 
-* Use consistent notebook naming conventions, such as `01_exploratory_data_analysis_<author>.ipynb`, `02_data_cleaning_<author>.ipynb`, `03_feature_engineering_<author>.ipynb`, and `04_baseline_models_<author>.ipynb`.
+### Week 1: Setup
+| ID | Title | Owner | Reviewer | Depends on | Status |
+|---|---|---|---|---|---|
+| 0.1 | Fork repo, add teammate and mentor, set `git config` | Rama | Uyazi | - | Complete |
+| 0.2 | Folder structure, `.gitignore`, `requirements.txt`, README skeleton | Rama | Uyazi | 0.1 | Complete |
+| 0.3 | Set up venv, install requirements, run a test notebook | Rama + Uyazi | Each other | 0.2 | Complete |
+| 0.4 | Download data into `data/`, review the data dictionary | Rama + Uyazi | Each other | 0.3 | Complete |
+| 0.5 | Agree on hypotheses and research questions | Rama + Uyazi | Each other | - | Complete |
+| 0.6 | Create GitHub Project board with these tickets | Rama + Uyazi | Each other | 0.1 | Complete |
 
-* Store reusable functions and modules in `src/` and import them into notebooks.
+### Sprint 1: EDA (weeks 2-3)
+| ID | Title | Owner | Reviewer | Depends on | Status |
+|---|---|---|---|---|---|
+| 1.1 | Data quality: types, duplicates, ranges, merge features and labels | Rama | Uyazi | 0.4 | Complete |
+| 1.2 | Missing-value analysis and strategy (including missingness vs. target) | Rama | Uyazi | 1.1 | Complete |
+| 1.3 | Target distribution, imbalance, target correlation (H5, RQ4) | Rama | Uyazi | 1.1 | Complete |
+| 1.4 | Demographics vs. uptake (H2, RQ1, 2, 5) | Rama | Uyazi | 1.2 | Complete |
+| 1.5 | Opinions and risk perception vs. uptake (H1, H4) | Rama | Uyazi | 1.2 | Complete |
+| 1.6 | Behaviours, doctor recommendation, health factors vs. uptake (H3, H6, RQ3, 6) | Rama | Uyazi | 1.2 | Complete |
+| 1.7 | Reorganise high-cardinality categoricals (`employment_*`, `hhs_geo_region`) | Rama | Uyazi | 1.2 | Complete |
+| 1.8 | Correlation analysis (Cramér's V / Spearman), multicollinearity | Rama | Uyazi | 1.4-1.6 | Complete |
+| 1.9 | Data cleaning notebook and `src/cleaning.py` (merged from both notebooks) | Uyazi + Rama | Each other | 1.2, 1.7 | Complete |
+| 1.10 | EDA report in `reports/` and 5-minute pitch 1 | Rama + Uyazi | Each other | all | Review |
 
-## 2. Timeline (9 Weeks)
+### Sprint 2: Modelling (weeks 4-6)
+| ID | Title | Owner | Reviewer | Depends on | Status |
+|---|---|---|---|---|---|
+| 2.1 | Aggregated scores (preventive behaviour, risk perception) | Rama | Mentor or peer | 1.9 | In Progress |
+| 2.2 | Ordinal encoding (age, education, income) and one-hot for nominal columns | Rama | Mentor or peer | 1.9 | In Progress |
+| 2.3 | Preprocessing `Pipeline` / `ColumnTransformer` in `src/` | Rama | Mentor or peer | 2.1, 2.2 | In Progress |
+| 2.4 | Baseline logistic regression per target, stratified 5-fold CV | Rama | Mentor or peer | 2.3 | In Progress |
+| 2.5 | Random forest | Rama | Mentor or peer | 2.3 | In Progress |
+| 2.6 | Gradient boosting (scikit-learn HistGradientBoosting) | Rama | Mentor or peer | 2.3 | In Progress |
+| 2.7 | Hyperparameter tuning (RandomizedSearchCV) | Rama | Mentor or peer | 2.4-2.6 | In Progress |
+| 2.8 | Evaluation: ROC AUC, accuracy, precision, recall, F1, confusion matrix, comparison table | Rama | Mentor or peer | 2.7 | In Progress |
+| 2.9 | Experiment log (model, parameters, CV scores) in `reports/model_results.json` | Rama | Mentor or peer | 2.4 | In Progress |
+| 2.10 | `src/train_model.py`, `processed_data_dictionary.md`, modelling decisions, pitch 2 | Rama | Mentor or peer | all | In Progress |
+| 2.11 | Optional: ensemble, XGBoost comparison, DrivenData submission | Rama | Mentor or peer | 2.7 | Not Started |
 
-| Week | Focus                                             | Milestone                                                                        |
-| ---- | ------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 1    | Project setup                                     | Repository and environment configured; documentation started; hypotheses drafted |
-| 2–3  | Sprint 1: EDA and data cleaning                   | EDA report, data-cleaning strategy, and Pitch #1                                 |
-| 4–5  | Sprint 2: Feature engineering and baseline models | Feature set and baseline models with cross-validation                            |
-| 6    | Sprint 2: Tuning and evaluation                   | Tuned models, evaluation metrics, and Pitch #2                                   |
-| 7–8  | Sprint 3: Interpretation and dashboard            | Feature-importance analysis, model interpretation, and Streamlit dashboard       |
-| 9    | Project wrap-up                                   | Final documentation and five-minute presentation                                 |
+### Sprint 3: Insights and deployment (weeks 7-9)
+| ID | Title | Owner | Reviewer | Depends on | Status |
+|---|---|---|---|---|---|
+| 3.1 | Feature importance (model-based and permutation), both targets | Rama | Mentor or peer | 2.7 | Not Started |
+| 3.2 | Non-linearity and interactions (SHAP if feasible) | Rama | Mentor or peer | 3.1 | Not Started |
+| 3.3 | Compare insights across models; relate back to H1-H6 | Rama | Mentor or peer | 3.2 | Not Started |
+| 3.4 | Limitations: what the model and data cannot explain, biases, ethics | Rama | Mentor or peer | 3.3 | Not Started |
+| 3.5 | Streamlit dashboard (optional: EDA charts, metrics, prediction demo) | Rama | Mentor or peer | 2.10 | Not Started |
+| 3.6 | Public-health recommendations | Rama | Mentor or peer | 3.3 | Not Started |
+| 3.7 | Final README, docs cleanup, 5-minute final presentation | Rama | Mentor or peer | all | Not Started |
 
-## 3. Research Hypotheses (Sprint 1)
-
-* **H1:** Beliefs about vaccine effectiveness and concerns about side effects influence vaccination decisions.
-
-* **H2:** Demographic characteristics, including age, education, and income, are associated with vaccination uptake.
-
-* **H3:** Preventive health behaviours are associated with vaccination uptake.
-
-* **H4:** Risk perception, including health concerns and perceived susceptibility, influences vaccination decisions.
-
-* **H5:** Uptake of seasonal influenza and H1N1 vaccines is positively correlated. The initial analysis suggests a correlation of approximately 0.38; this must be verified using the data.
-
-* **H6:** Doctor recommendations and health insurance status are potentially important predictors of vaccination uptake.
-
-## 4. Research Questions
-
-1. Which age groups are most and least likely to receive vaccinations?
-
-2. Are gender, education, and income associated with vaccination uptake?
-
-3. Are people with chronic health conditions or those working in healthcare more likely to get vaccinated?
-
-4. Are people vaccinated against seasonal influenza also more likely to receive the H1N1 vaccine?
-
-5. Are employment status and household composition associated with vaccination uptake?
-
-6. How strongly is a doctor's recommendation associated with vaccination decisions?
-
-7. Do the findings differ between H1N1 and seasonal influenza vaccination?
-
-## 5. Project Tickets
-
-**Effort levels:** Low, Medium, High
-**Status options:** Not Started, In Progress, In Review, Complete
-
-Track all tickets using the GitHub Projects board. Assign each ticket an owner, a reviewer, and any relevant dependencies.
-
-### Week 1 — Project Setup
-
-| ID  | Task                                                                                                                                | Owner | Dependencies |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------- | ----- | ------------ |
-| 0.1 | Fork the repository, add the teammate and mentor as collaborators, and configure `git config user.name` and `git config user.email` | A     | None         |
-| 0.2 | Create the folder structure, `.gitignore`, `requirements.txt`, and README skeleton                                                  | A     | 0.1          |
-| 0.3 | Set up the virtual environment, install dependencies, and run a test notebook                                                       | A     | 0.2          |
-| 0.4 | Download the datasets into `data/` and review the data dictionary                                                                   | A     | 0.3          |
-| 0.5 | Agree on the research hypotheses and questions                                                                                      | A + B | None         |
-| 0.6 | Create the GitHub Projects board and add the tickets                                                                                | A + B | 0.1          |
-
-### Sprint 1 — Exploratory Data Analysis (Weeks 2–3)
-
-| ID   | Task                                                                                                                                                  | Owner | Dependencies |
-| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------------ |
-| 1.1  | Assess data quality: data types, duplicates, value ranges, and merging features with labels                                                           | A     | 0.4          |
-| 1.2  | Analyse missing values and define a handling strategy, including missingness in relation to the targets                                               | A     | 1.1          |
-| 1.3  | Examine target distributions, class imbalance, and correlation between vaccination targets (H5, RQ4)                                                  | A     | 1.1          |
-| 1.4  | Analyse demographic characteristics in relation to vaccination uptake (H2, RQ1, RQ2, RQ5)                                                             | A     | 1.2          |
-| 1.5  | Analyse opinions and risk perceptions in relation to vaccination uptake (H1, H4)                                                                      | A     | 1.2          |
-| 1.6  | Analyse preventive behaviours, doctor recommendations, and health factors in relation to vaccination uptake (H3, H6, RQ3, RQ6)                        | A     | 1.2          |
-| 1.7  | Investigate and appropriately handle high-cardinality categorical features, including `employment_*` and `hhs_geo_region`                             | A     | 1.2          |
-| 1.8  | Conduct association analysis using appropriate measures, such as Cramér's V and Spearman's correlation, and assess multicollinearity where applicable | A     | 1.4–1.6      |
-| 1.9  | Create the `02_data_cleaning` notebook and implement reusable cleaning functions in `src/cleaning.py`                                                 | B     | 1.2, 1.7     |
-| 1.10 | Prepare the EDA report in `reports/` and deliver the five-minute Pitch #1                                                                             | A + B | 1.1–1.9      |
-
-### Sprint 2 — Feature Engineering and Modelling (Weeks 4–6)
-
-| ID   | Task                                                                                                                              | Owner | Dependencies |
-| ---- | --------------------------------------------------------------------------------------------------------------------------------- | ----- | ------------ |
-| 2.1  | Create aggregated scores for preventive behaviours and risk perception where justified                                            | A     | 1.9          |
-| 2.2  | Apply suitable ordinal encoding to ordered features, such as age, income, and education, and one-hot encoding to nominal features | A     | 1.9          |
-| 2.3  | Implement a preprocessing pipeline using `Pipeline` and `ColumnTransformer` in `src/`                                             | A     | 2.1, 2.2     |
-| 2.4  | Train baseline Logistic Regression models for both targets using stratified five-fold cross-validation                            | B     | 2.3          |
-| 2.5  | Train and evaluate Random Forest models                                                                                           | B     | 2.3          |
-| 2.6  | Train and evaluate a Gradient Boosting model, such as HistGradientBoosting, XGBoost, or LightGBM                                  | B     | 2.3          |
-| 2.7  | Tune hyperparameters using `RandomizedSearchCV`                                                                                   | B     | 2.4–2.6      |
-| 2.8  | Evaluate models using ROC AUC, accuracy, precision, recall, F1-score, and confusion matrices; prepare a comparison table          | A     | 2.4–2.7      |
-| 2.9  | Maintain an experiment log containing model names, parameters, and cross-validation scores                                        | A     | 2.4          |
-| 2.10 | Create `src/train_model.py`, document the processed dataset in `processed_data_dictionary.md`, and prepare Pitch #2               | A + B | 2.1–2.9      |
-| 2.11 | Optional: experiment with an ensemble or prepare a DrivenData competition submission                                              | B     | 2.7          |
-
-### Sprint 3 — Insights and Deployment (Weeks 7–9)
-
-| ID  | Task                                                                                                               | Owner | Dependencies       |
-| --- | ------------------------------------------------------------------------------------------------------------------ | ----- | ------------------ |
-| 3.1 | Analyse feature importance using model-based and permutation methods for both targets                              | B     | 2.7                |
-| 3.2 | Conduct SHAP analysis to investigate nonlinear relationships and feature interactions, where appropriate           | B     | 3.1                |
-| 3.3 | Compare findings across models and relate the results to hypotheses H1–H6                                          | A + B | 3.2                |
-| 3.4 | Document limitations, potential biases, ethical considerations, and aspects that the data or models cannot explain | A + B | 3.3                |
-| 3.5 | Optional: develop a Streamlit dashboard featuring EDA charts, model metrics, and a prediction demonstration        | A     | 2.10               |
-| 3.6 | Develop evidence-based public health recommendations based on the findings                                         | A + B | 3.3                |
-| 3.7 | Finalise the README and documentation and prepare the five-minute final presentation                               | A + B | All relevant tasks |
-
-## 6. Ticket Template
-
-Use the following template for each GitHub issue:
-
+## 6. Ticket template
 ```
 ## Ticket ID:
-## Title:
-
-### Description
-Describe the task and its purpose.
-
-### Acceptance Criteria
-- [ ] The task is completed.
-- [ ] The results are documented.
-- [ ] The code or notebook has been tested.
-- [ ] A pull request has been reviewed and approved.
-
+### Title:
+### Description:
+### Acceptance Criteria:
+- 
 ### Assigned To:
 ### Reviewer:
-### Effort: Low / Medium / High
-### Status: Not Started / In Progress / In Review / Complete
+### Status: [Not Started/In Progress/Review/Complete]
 ### Dependencies:
-### Related Hypothesis or Research Question:
 ```
 
-## 7. Sprint Retrospectives
+## 7. Sprint retrospectives (draft: edit before the final pitch)
+### Sprint 1
+- **Went well:** two independent cleaning notebooks reached the same result and were merged into one shared module; hypothesis tests gave clear evidence; every step is reproducible from the notebooks.
+- **To improve:** keep one terminal for Git commands; use `git status` before every commit; protect `main` so an accidental delete cannot land there; agree on names and conventions (labels, file names) before writing code.
+- **Challenges:** the teammate left after Sprint 1, so the work was reorganised for one person; an accidental deletion on GitHub was restored with a revert; Jupyter kernel setup in VS Code; `.DS_Store` and data files nearly committed.
 
-After each sprint, both team members should discuss what went well, what could be improved, and which challenges they encountered.
+### Sprint 2
+_To be written at the end of the sprint._
 
-* **Sprint 1:** What went well / What could be improved / Challenges
+### Sprint 3
+_To be written at the end of the sprint._
 
-* **Sprint 2:** What went well / What could be improved / Challenges
-
-* **Sprint 3:** What went well / What could be improved / Challenges
-
-Record the outcomes and agreed actions in the project documentation.
-
-
----
-
-**Important project note:** The project investigates associations and predictive relationships, not necessarily causal effects. Any conclusions about vaccination behaviour should reflect this limitation. Confirm the reported target correlation and other initial assumptions during EDA before presenting them as findings.
+## 8. Decision log
+| Sprint | Decision | Reason |
+|---|---|---|
+| 1 | Flag columns with more than 5 % missing (plus `household_*`) before filling | Missing answers are related to vaccination |
+| 1 | No guessed value for `health_insurance` | 46 % missing and not explained by income or employment |
+| 1 | `Not employed` / `Missing` labels | One clear naming convention |
+| 1 | Job codes with fewer than 100 people become `Other` | Tiny groups are unreliable; larger rare groups are kept because they can differ a lot |
+| 1 | Cleaning rules and learned levels come from the training set only | The test set must be treated like new data |
+| 2 | Fill numeric gaps inside the Pipeline (median) | Re-learned in each CV fold, no leakage |
+| 2 | One model per target | The two vaccines depend on different factors (age, effectiveness) |
+| 2 | Do not use one vaccine as a feature for the other | Leakage: the other target is not known for new people |
+| 2 | scikit-learn HistGradientBoosting instead of XGBoost | See `reports/modelling_decisions.md` |
+| 2 | ROC AUC as the main metric | Competition metric; independent of the class imbalance |
+| 2 | Also report a single 80/20 hold-out split (`src/holdout_check.py`) | Easy to explain to a non-technical audience; agrees with the 5-fold CV |
+| 2 | Continue alone after Sprint 1 | Teammate left; Sprint 3 core items first, dashboard optional |

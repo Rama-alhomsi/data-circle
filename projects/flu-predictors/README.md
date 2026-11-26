@@ -26,14 +26,14 @@ The dataset includes demographic information, health-related characteristics, op
 
 **Data source:** [DrivenData – Flu Shot Learning](https://www.drivendata.org/competitions/66/flu-shot-learning/)
 
-The following dataset files are included in the repository's `data/` directory:
+The raw CSV files are **not** stored in Git (DrivenData's data terms apply). Download them from the competition page and place them in `data/`:
 
 - `training_set_features.csv`
 - `training_set_labels.csv`
 - `test_set_features.csv`
 - `submission_format.csv`
-- `data_dictionary.md`
-- `processed_data_dictionary.md`
+
+The documentation files `data_dictionary.md` and `processed_data_dictionary.md` are part of the repository.
 
 ## Project Structure
 
@@ -41,10 +41,7 @@ The following dataset files are included in the repository's `data/` directory:
 flu-predictors/
 │
 ├── data/
-│   ├── training_set_features.csv
-│   ├── training_set_labels.csv
-│   ├── test_set_features.csv
-│   ├── submission_format.csv
+│   ├── (CSV files from DrivenData go here; not tracked by Git)
 │   ├── data_dictionary.md
 │   └── processed_data_dictionary.md
 │
@@ -54,6 +51,8 @@ flu-predictors/
 │   └── 03_hypothesis_testing_rama.ipynb
 │
 ├── reports/
+│   ├── eda_report.md
+│   └── cleaning_changes.md
 │
 ├── src/
 │   ├── README.md
@@ -194,3 +193,8 @@ jupyter notebook
 ```
 
 **Project focus:** Understanding vaccination patterns through data analysis and statistical investigation.
+
+## Contributors
+
+- **Rama Alhomsi:** project lead; EDA, cleaning, hypothesis testing and all later work.
+- **Uyazi Dube:** Sprint 1 data-cleaning notebook, whose ideas were merged into `src/cleaning.py` (see `reports/cleaning_changes.md`). Left the project after Sprint 1.
